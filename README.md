@@ -60,7 +60,7 @@ Installation
 License
 -------
 
-Copyright (C) 2012 Fabrizio Codello
+Copyright (C) 2013 oYo Makers Team
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
