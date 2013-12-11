@@ -1,0 +1,20 @@
+{
+	"frasi": [
+		{
+			"text": "Faccio paolino?",
+			"probability": 100
+		},
+		{
+			"text": "Oh",
+			"probability": 100
+		},
+		{
+			"text": "Impazzito?",
+			"probability": 100
+		},
+		{
+			"text": "Fuori di testa.",
+			"probability": 100
+		}
+	]
+}
