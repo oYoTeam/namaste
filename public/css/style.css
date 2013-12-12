@@ -1,33 +1,47 @@
 body {
-  padding: 30px 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	margin: 0;
+	width: 100%;
+	background-color: black;
+  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  	color: #00B7FF;
 }
 
 .clearer {
 	clear: both;
 }
 
-#woolyarn-debug {
-	display: none;
+#wrapper {
+	position: relative;
+	z-index: 70;
+	color: #fff;
+}
+
+.click-nome {
+	color: #fff;
+	position: absolute;
+	z-index: 70;
+	cursor: pointer;
+}
+
+#myCanvas{
 	position: fixed;
-	right: 10px;
-	bottom: 0;
-	background-color: #FFFFDD;
-	border: 0 none;
-	border-bottom: none;
-	padding: 10px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-topright: 10px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.75);
-	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.75);
+	bottom: 0px;
+	display: block;
+}
+
+.nome {
+	z-index: 70;
+	height: 100px;
+	width: 400px;
+	position: absolute;
+	top: 200px;
+	right: 200px;
+	color: #fff;
+	font-family: Arial;
+	font-size: 100px;
+	text-transform: uppercase;
+	opacity: 0;
 }
