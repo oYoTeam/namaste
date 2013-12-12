@@ -8,6 +8,8 @@ $(document).ready(function() {
 		console.log('Value arrived from arduino: '+ data.value.value);
 
 		$("#currentValue").html(JSON.stringify(data));
+
+		riempi((data.value.value)*10);
 	});
 
 	$('.click-nome').on('click', function() {
@@ -25,6 +27,20 @@ $(document).ready(function() {
         }
 	});
 });
+
+$('.stati span').on('click', function() {
+	var stato = $(this).attr('valore');
+	console.log(stato);
+	riempi(stato);
+});
+
+function riempi(valore) {
+
+	$('.colonna').animate({
+		height : valore
+	},100);
+
+}
 
 // When the window has loaded, DOM is ready. Run the draw() function.
 // Create an array to store our particles
