@@ -1,0 +1,7 @@
+GLOBAL STATUSES
+	attesa (se livello nessuno)
+	avvicinati (se livello basso) -> forse non usato
+	ricevuto richiesta (se medio per tot tempo -> non accetta altri valori)
+	elaborazione 
+	responso (dopo responso ri-accetta valori)
+	-> tempo di passaggio a frase successiva
