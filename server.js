@@ -182,9 +182,6 @@ function generateIntStatusFromValue(value) {
 	return result;
 }
 
-var stableValueTimeout = null;
-var valuesArray = [];
-
 // Returns the element with the highest occurrence
 function mode(array) {
     if(array.length == 0)
@@ -234,14 +231,54 @@ function startStableValueTimeout(value) {
 
 }
 
+// Get a random number from 1 to length of phrases array,
+// EXCLUDE position 0 as it is a special phrase
+function getRandomValue() {
+	var randomValue = Math.floor(Math.random() * (frasiList.length));
+
+	if (randomValue == 0) { // Frase Max
+		randomValue = getRandomValue();
+	}
+
+	return randomValue;
+}
+
+// Get a random phrase
+// use getFraseMax == true to cheat and get the Special phrase
+function getFraseRandom(getFraseMax) {
+	var frase = {};
+
+	getFraseMax = getFraseMax || false;
+
+	if (getFraseMax) {
+		frase = frasiList[0];
+	} else {
+		frase = frasiList[getRandomValue()];
+	}
+
+	return frase;
+}
+
+/*
+* Main
+*/
+
+var stableValueTimeout = null;
+var valuesArray = [];
+var frasi_json = require('./frasi.json');
+var frasiList = frasi_json.frasi;
+var fraseDiMaxPosition = 0;
+
 bus.on('arduino', function(value) {
 
 	valuesArray.push(generateIntStatusFromValue(value));
 
 });
 
-// var frasi = require('./frasi.json');
-// console.log(JSON.stringify(frasi));
-
-
 startStableValueTimeout();
+
+// TEST
+
+var fraseRandom = getFraseRandom(false); // use true to get special phrase
+
+console.log(fraseRandom);

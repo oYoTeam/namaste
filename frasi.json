@@ -1,20 +1,44 @@
 {
 	"frasi": [
 		{
-			"text": "Faccio paolino?",
-			"probability": 100
+			"text": "Complimenti! La tua azienda sta andando sempre meglio, oggi festeggerai dando un aumento a tutti!",
+			"mood": "positivo"
 		},
 		{
-			"text": "Oh",
-			"probability": 100
+			"text": "La tua avventura finisce qui, il tuo h-factor non è sufficiente",
+			"mood": "negativo"
 		},
 		{
-			"text": "Impazzito?",
-			"probability": 100
+			"text": "Al rientro a casa finirai con la tua macchina dentro una buca del parcheggio",
+			"mood": "negativo"
 		},
 		{
-			"text": "Fuori di testa.",
-			"probability": 100
+			"text": "Oggi Sinigaglia è in ferie, potrai lavorare in tranquillità",
+			"mood": "positivo"
+		},
+		{
+			"text": "La suoneria di Sinigaglia è rotta, potrai lavorare in tranquillità",
+			"mood": "positivo"
+		},
+		{
+			"text": "Una nutria ti morderà la caviglia. Cerca il modulo di malattia su Podio",
+			"mood": "negativo"
+		},
+		{
+			"text": "Oggi c'è un grafico a disposizione!",
+			"mood": "positivo"
+		},
+		{
+			"text": "Il plugin che ha scritto pleone ha generato un Epic Fail. Inizia a trovare una scusa.",
+			"mood": "negativo"
+		},
+		{
+			"text": "Il tuo mac sta tirando le cuoia, inizia a fare backup",
+			"mood": "negativo"
+		},
+		{
+			"text": "Oggi il menu della serra non conterrà cibi dei giorni precedenti! Woo Hoo!",
+			"mood": "positivo"
 		}
 	]
 }
