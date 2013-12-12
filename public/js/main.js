@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 		$("#currentValue").html(JSON.stringify(data));
 
-		riempi((data.value.value)*10);
+		riempi((data.value)*100);
 	});
 
 	$('.click-nome').on('click', function() {
@@ -35,7 +35,6 @@ $('.stati span').on('click', function() {
 });
 
 function riempi(valore) {
-
 	$('.colonna').animate({
 		height : valore
 	},100);

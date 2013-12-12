@@ -137,13 +137,13 @@ var intervals = [
 {
 	min: 200,
 	max: 500,
-	status: 3,
+	status: 2,
 	label: "alto"
 },
 {
 	min: 500,
 	max: 1000000,
-	status: 4,
+	status: 3,
 	label: "altissimo"
 }
 ];
@@ -227,7 +227,7 @@ function guessStableValue() {
 
 function startStableValueTimeout(value) {
 
-	stableValueTimeout = setTimeout(function() { guessStableValue() }, 5000);
+	stableValueTimeout = setTimeout(function() { guessStableValue() }, 0);
 
 }
 
