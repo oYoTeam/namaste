@@ -5,13 +5,14 @@ $(document).ready(function() {
 	var socket = Woolyarn.getSocket();
 
 	Woolyarn.socket.on('arduino', function(data) {
+
 		console.log('Value arrived from arduino: '+ data.value.value);
 
 		$("#currentValue").html(JSON.stringify(data));
 	});
 
     Woolyarn.socket.on('capacitiveBar', function(data) {
-        console.log('Value arrived from capacitiveBar: '+ data.high.value);
+        console.log('Value arrived from capacitiveBar: '+ data.high);
 
         riempi(data.value);
     });

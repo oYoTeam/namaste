@@ -225,22 +225,10 @@ function guessStableValue() {
 	
 }
 
-function sendRawValue(){
-	var stableStatus;
-	stableStatus = mode(valuesArray);
-	if (stableStatus !== null) {
-		console.log("stableStatus: "+ stableStatus);
-	}
-
-	valuesArray = [];
-	io.sockets.emit('arduino', { value: stableStatus });
-	startStableValueTimeout();
-}
-
 
 function startStableValueTimeout(value) {
 
-	stableValueTimeout = setTimeout(function() { guessStableValue() }, 0);
+	stableValueTimeout = setTimeout(function() { guessStableValue() }, 2000);
 
 }
 
@@ -283,9 +271,8 @@ var frasiList = frasi_json.frasi;
 var fraseDiMaxPosition = 0;
 
 bus.on('arduino', function(value) {
-
+	io.sockets.emit('capacitiveBar', { high: value });
 	valuesArray.push(value);
-	io.sockets.emit('capacitiveBar', { high : value });
 });
 
 startStableValueTimeout();
