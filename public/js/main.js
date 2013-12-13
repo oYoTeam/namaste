@@ -14,7 +14,7 @@ $(document).ready(function() {
     Woolyarn.socket.on('capacitiveBar', function(data) {
         console.log('Value arrived from capacitiveBar: '+ data.high);
 
-        riempi(data.value);
+        riempi(data.high);
     });
 
 
@@ -32,6 +32,12 @@ $(document).ready(function() {
             $(this).addClass('.active');
         }
 	});
+
+    $('.bottoni p').on('click', function() {
+        var numero = $(this).html();
+        $('img#codello').attr('src', '/img/'+numero+'.jpg');
+    });
+
 });
 
 $('.stati span').on('click', function() {
@@ -42,7 +48,6 @@ $('.stati span').on('click', function() {
 function riempi(valore) {
 
     valore = valore-100;
-
     if( valore<0 ) { valore == 0; }
 
 	$('.colonna').animate({
@@ -226,7 +231,7 @@ function update() {
 
 // function make_base() {
   base_image = new Image();
-  base_image.src = 'http://www.facecutouts.com/wp-content/uploads/2012/03/face_will_smith.png';
+  // base_image.src = '/img/fabryz.png';
   base_image.onload = function(){
     context.drawImage(base_image, 100, 100);
   }

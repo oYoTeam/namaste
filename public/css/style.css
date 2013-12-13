@@ -1,8 +1,15 @@
+@font-face
+{
+font-family: indian;
+src: url('/font/Tribal.ttf');
+}
+
 body {
 	margin: 0;
 	width: 100%;
 	background-color: black;
-  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  	font: 14px 'indian', Helvetica, Arial, sans-serif;
+  	color: #fff;
 }
 
 a {
@@ -24,6 +31,7 @@ a {
 	position: absolute;
 	z-index: 70;
 	cursor: pointer;
+	top: 300px;
 }
 
 #myCanvas{
@@ -35,13 +43,13 @@ a {
 .nome {
 	z-index: 70;
 	height: 100px;
-	width: 400px;
+	width: 600px;
 	position: absolute;
 	top: 200px;
 	right: 200px;
 	color: #fff;
-	font-family: Arial;
-	font-size: 100px;
+	font-family: 'indian', Helvetica, Arial, sans-serif;
+	font-size: 40px;
 	text-transform: uppercase;
 	opacity: 0;
 }
@@ -64,4 +72,21 @@ a {
 	width: 100px;
 	height: 100px;
 	color: #fff;
+}
+
+#codello {
+	position: relative;
+	z-index: 70;
+	left: 100px;
+	top: 100px;
+}
+
+.bottoni {
+	z-index: 70;
+	position: relative;
+}
+.bottoni p { 
+	float: left;
+	margin-right: 20px; 
+	cursor: pointer;
 }
