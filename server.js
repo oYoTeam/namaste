@@ -225,6 +225,19 @@ function guessStableValue() {
 	
 }
 
+function sendRawValue(){
+	var stableStatus;
+	stableStatus = mode(valuesArray);
+	if (stableStatus !== null) {
+		console.log("stableStatus: "+ stableStatus);
+	}
+
+	valuesArray = [];
+	io.sockets.emit('arduino', { value: stableStatus });
+	startStableValueTimeout();
+}
+
+
 function startStableValueTimeout(value) {
 
 	stableValueTimeout = setTimeout(function() { guessStableValue() }, 0);
@@ -271,8 +284,8 @@ var fraseDiMaxPosition = 0;
 
 bus.on('arduino', function(value) {
 
-	valuesArray.push(generateIntStatusFromValue(value));
-
+	valuesArray.push(value);
+	io.sockets.emit('capacitiveBar', { value: value });
 });
 
 startStableValueTimeout();
