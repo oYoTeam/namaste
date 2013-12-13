@@ -4,12 +4,12 @@ $(document).ready(function() {
 
 	var socket = Woolyarn.getSocket();
 
-	Woolyarn.socket.on('arduino', function(data) {
+	Woolyarn.socket.on('capacitiveBar', function(data) {
 		console.log('Value arrived from arduino: '+ data.value.value);
 
 		$("#currentValue").html(JSON.stringify(data));
 
-		riempi((data.value)*100);
+		riempi(data.value);
 	});
 
 	$('.click-nome').on('click', function() {
@@ -30,7 +30,6 @@ $(document).ready(function() {
 
 $('.stati span').on('click', function() {
 	var stato = $(this).attr('valore');
-	console.log(stato);
 	riempi(stato);
 });
 
