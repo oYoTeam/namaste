@@ -1,4 +1,4 @@
-
+long intervalValue = 200;
 int currentLed = 0;
 
 //  disposizione led:
@@ -48,3 +48,11 @@ void lightMultipleLeds() {
   delay(delayTimer); 
 }
 
+
+void lightGreenOrYellow(long value){
+  if (value <= intervalValue){
+    lightYellowLed();
+  }else{
+    lightGreenLed();
+  }
+}

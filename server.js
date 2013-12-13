@@ -213,6 +213,7 @@ function guessStableValue() {
 		stableStatus = mode(valuesArray);
 
 		if (stableStatus !== null) {
+			stableStatus = generateIntStatusFromValue(stableStatus);
 			console.log("stableStatus: "+ stableStatus);
 		}
 
