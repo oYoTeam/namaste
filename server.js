@@ -285,7 +285,7 @@ var fraseDiMaxPosition = 0;
 bus.on('arduino', function(value) {
 
 	valuesArray.push(value);
-	io.sockets.emit('capacitiveBar', { value: value });
+	io.sockets.emit('capacitiveBar', { high : value });
 });
 
 startStableValueTimeout();

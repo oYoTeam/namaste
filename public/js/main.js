@@ -4,13 +4,18 @@ $(document).ready(function() {
 
 	var socket = Woolyarn.getSocket();
 
-	Woolyarn.socket.on('capacitiveBar', function(data) {
+	Woolyarn.socket.on('arduino', function(data) {
 		console.log('Value arrived from arduino: '+ data.value.value);
 
 		$("#currentValue").html(JSON.stringify(data));
-
-		riempi(data.value);
 	});
+
+    Woolyarn.socket.on('capacitiveBar', function(data) {
+        console.log('Value arrived from capacitiveBar: '+ data.high.value);
+
+        riempi(data.value);
+    });
+
 
 	$('.click-nome').on('click', function() {
         console.log(this);
@@ -34,6 +39,11 @@ $('.stati span').on('click', function() {
 });
 
 function riempi(valore) {
+
+    valore = valore-100;
+
+    if( valore<0 ) { valore == 0; }
+
 	$('.colonna').animate({
 		height : valore
 	},100);
