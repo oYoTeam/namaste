@@ -10,70 +10,124 @@
 
     	var socket          = Woolyarn.getSocket();
 
+        var previousDataArduino = 'diocan';
+        var previousDataHigh = 'tette';
 
-        //  mostra fabryz che pensa
-        function showFabryzThinking() {
+        var $doc  = $(document);
+        var $win  = $(window);
+        var $html = $('html');
+        var $body = $('body');
+        var $fabryzWaitingCt    = $body.find('.fabryz-waiting').eq(0); 
+        var $fabryzComeCloserCt = $body.find('.fabryz-come_closer').eq(0); 
+        var $fabryzThinkingCt   = $body.find('.fabryz-thinking').eq(0); 
+        var $fabryzSayingCt     = $body.find('.fabryz-saying').eq(0); 
 
+        //  helper per effettuare fadeIn di un div
+        function showDiv($obj) {
+            if (typeof $obj === 'object') {
+                if ($.isArray($obj)) {
+                    for (var i = 0; i < $obj.length; i++) {
+                        $obj[i].removeClass('hidden invisible');
+                    }
+                } else {
+                    $obj.removeClass('hidden invisible');
+                }
+                return true;
+            }
+            return false;
         };
 
-        //  nasconde fabryz che pensa
-        function hideFabryzThinking() {
+        //  helper per effettuare fadeOut di un div
+        function hideDiv($obj) {
+            if (typeof $obj === 'object') {
+                if ($.isArray($obj)) {
+                    for (var i = 0; i < $obj.length; i++) {
+                        $obj[i].addClass('invisible').transitionEnd(function () {
+                            $obj[i].addClass('hidden').removeClass('invisible');
+                        });
+                    }
+                } else {
+                    $obj.addClass('invisible').transitionEnd(function () {
+                        $obj[i].addClass('hidden').removeClass('invisible');
+                    });
+                }
+                return true;
+            }
+            return false;
+        };
 
+        //  helper per effettuare il crossfade tra due div
+        function crossDiv($objIn, $objOut) {
+            showDiv($objIn);
+            hideDiv($objOut);
+        };
+
+        //  mostra fabryz che pensa
+        function showFabryzWaiting() {
+            crossDiv($fabryzWaitingCt, [$fabryzComeCloserCt, $fabryzThinkingCt, $fabryzSayingCt]);
         };
 
         //  mostra fabryz che dice di avvicinarsi
         function showFabryzComeCloser() {
-
+            crossDiv($fabryzComeCloserCt, [$fabryzWaitingCt, $fabryzThinkingCt, $fabryzSayingCt]);
         };
 
-        //  nasconde fabryz che dice di avvicinarsi
-        function hideFabryzComeCloser() {
-
-        };
-
-        //  mostra fabryz che restituisce la frase
+        //  mostra fabryz che pensa
         function showFabryzThinking() {
-
+            crossDiv($fabryzThinkingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzSayingCt]);
         };
 
-        //  nasconde fabryz che restituisce la frase
-        function hideFabryzThinking() {
-
+        //  mostra fabryz che dice la frase
+        function showFabryzSaying() {
+            crossDiv($fabryzSayingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzThinkingCt]);
         };
 
 
         //  decide che funzione assegnare a ciascun stato
         function switchState(s) {
             var state = s;
+            console.log('Valore interpretato: ', state, ' di tipo: ', (typeof state));
 
             switch(state) {
-                case 0:     //  fabryz è in attesa
-                    showFabryzThinking();
+                case '0':     //  fabryz è in attesa
+                    console.log('Waiting');
+                    showFabryzWaiting();
                 break;
-                case 1:     //  fabryz dice di avvicinarsi
+                case '1':     //  fabryz dice di avvicinarsi
+                    console.log('ComeCloser');
                     showFabryzComeCloser();
                 break;
-                case 2:     //  fabryz restituisce la frase
-                    showFabryzSayOracle();
+                case '2':     //  fabryz pensa
+                    console.log('Thinking');
+                    showFabryzThinking();
                 break;
                 default:
-                    showFabryzThinking();
+                    console.log('default-Waiting');
+                    showFabryzWaiting();
             }
         };
 
         //  quando ricevo un valore in lettura da arduino
     	Woolyarn.socket.on('arduino', function(data) {
-            var state = ~~(data.value.value);
-            console.log('Value arrived from arduino: ' + state);
-    		
-            //  debug del dato
-            $("#currentValue").html(JSON.stringify(data));
+            if (!data || data.value == previousDataArduino) {
+                previousDataArduino = data.value;
+                return false;
+            }
+            previousDataArduino = data.value;
 
-            switchState(state);
+            console.log('Valore da arduino: ', data.value, ' di tipo: ', (typeof data.value));
+            $("#currentValue").html(JSON.stringify(data));
+            switchState(JSON.stringify(data.value));
     	});
 
         //  quando ricevo un valore in lettura dalla barra capacitiva
         Woolyarn.socket.on('capacitiveBar', function(data) {
+            if (!data || data.high == previousDataHigh) {
+                previousDataHigh = data.high;
+                return false;
+            }
+            previousDataHigh = data.high;
+
             console.log('Value arrived from capacitiveBar: '+ data.high);
             arduinoValue = data.high;
             riempi(arduinoValue);
