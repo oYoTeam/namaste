@@ -206,10 +206,6 @@ function mode(array) {
 
 function guessStableValue() {
 	var stableStatus;
-
-	// if (valuesArray.length > 0) {
-		// console.log(JSON.stringify(valuesArray));
-
 		stableStatus = mode(valuesArray);
 
 		if (stableStatus !== null) {
@@ -220,7 +216,10 @@ function guessStableValue() {
 		valuesArray = [];
 
 		io.sockets.emit('arduino', { value: stableStatus });
-	// }
+		//se lo stato è quello giusto, mando la frase
+		if(stableStatus == 2 ){
+			io.sockets.emit('namaste', { data: getFraseRandom(false) });
+		}
 
 	startStableValueTimeout();
 	
