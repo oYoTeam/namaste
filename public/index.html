@@ -26,7 +26,21 @@
 
     <div class="colonna"></div>
 
-    <img id="codello" src="/img/00.png" width="500" />
+    <div class="codello-container">
+        <div class="row fabryz-waiting hidden box_transition">
+            <img src="/img/00.png" alt="fabryz-waiting" title="fabryz-waiting" />
+        </div>
+        <div class="row fabryz-come_closer hidden box_transition">
+            <img src="/img/02.png" alt="fabryz-come_closer" title="fabryz-come_closer" />
+        </div>
+        <div class="row fabryz-thinking hidden box_transition">
+            <img src="/img/01.png" alt="fabryz-thinking" title="fabryz-thinking" />
+        </div>
+        <div class="row fabryz-saying hidden box_transition">
+            <img src="/img/03.png" alt="fabryz-saying" title="fabryz-saying" />
+        </div>
+    </div>
+
     <canvas id="myCanvas" width="1200" height="500"></canvas>
 
     <script type="text/javascript" src="./socket.io/socket.io.js"></script>
@@ -34,6 +48,8 @@
 
     <script type="text/javascript" src="./js/Player.js"></script>
     <script type="text/javascript" src="./js/woolyarn.js"></script>
+
+    <script type="text/javascript" src="./js/transition-events.js"></script>
 
     <script type="text/javascript" src="./js/main.js"></script>
 </body>

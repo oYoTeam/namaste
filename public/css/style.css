@@ -20,6 +20,30 @@ a {
 	clear: both;
 }
 
+/* Classi astratte per le transitions */
+.box_transition {
+  -webkit-transition: opacity 0.5s ease-in-out;  /* Chrome 1-25, Safari 3.2+ */
+     -moz-transition: opacity 0.5s ease-in-out;  /* Firefox 4-15 */
+       -o-transition: opacity 0.5s ease-in-out;  /* Opera 10.50–12.00 */
+          transition: opacity 0.5s ease-in-out;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+/* Classi astratte per nascondere/mostrare i div */
+.hidden {
+	display: none;
+	visbility: hidden;
+	opacity: 0;
+}
+
+.invisible {
+	visiblity: hidden;
+	opacity: 0;
+}
+
+.visibile {
+	opacity: 1;
+}
+
 #wrapper {
 	position: relative;
 	z-index: 70;
@@ -74,11 +98,22 @@ a {
 	color: #fff;
 }
 
-#codello {
+/* Contenitore delle immagini di fabryz */
+.codello-container {
 	position: relative;
-	z-index: 70;
-	left: 100px;
-	top: 100px;
+	margin: 0 auto;
+	width: 960px;
+	z-index: 100;
+}
+
+.codello-container .row {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+}
+
+.codello-container .row img {
+	position: relative;
 }
 
 .bottoni {
