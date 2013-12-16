@@ -9,12 +9,67 @@
     	Woolyarn.init();
 
     	var socket          = Woolyarn.getSocket();
-        var arduinoValue    = null;
+
+
+        //  mostra fabryz che pensa
+        function showFabryzThinking() {
+
+        };
+
+        //  nasconde fabryz che pensa
+        function hideFabryzThinking() {
+
+        };
+
+        //  mostra fabryz che dice di avvicinarsi
+        function showFabryzComeCloser() {
+
+        };
+
+        //  nasconde fabryz che dice di avvicinarsi
+        function hideFabryzComeCloser() {
+
+        };
+
+        //  mostra fabryz che restituisce la frase
+        function showFabryzThinking() {
+
+        };
+
+        //  nasconde fabryz che restituisce la frase
+        function hideFabryzThinking() {
+
+        };
+
+
+        //  decide che funzione assegnare a ciascun stato
+        function switchState(s) {
+            var state = s;
+
+            switch(state) {
+                case 0:     //  fabryz è in attesa
+                    showFabryzThinking();
+                break;
+                case 1:     //  fabryz dice di avvicinarsi
+                    showFabryzComeCloser();
+                break;
+                case 2:     //  fabryz restituisce la frase
+                    showFabryzSayOracle();
+                break;
+                default:
+                    showFabryzThinking();
+            }
+        };
 
         //  quando ricevo un valore in lettura da arduino
     	Woolyarn.socket.on('arduino', function(data) {
-    		console.log('Value arrived from arduino: '+ data.value.value);
-    		$("#currentValue").html(JSON.stringify(data));
+            var state = ~~(data.value.value);
+            console.log('Value arrived from arduino: ' + state);
+    		
+            //  debug del dato
+            $("#currentValue").html(JSON.stringify(data));
+
+            switchState(state);
     	});
 
         //  quando ricevo un valore in lettura dalla barra capacitiva
