@@ -1,5 +1,6 @@
 long intervalValue = 200;
 int currentLed = 0;
+int lightCount = 5; //quanti giri devono fare i led ?
 
 //  disposizione led:
 //  5 -> blu
@@ -7,13 +8,13 @@ int currentLed = 0;
 //  7 -> giallo
 int ledArray[] = {5, 6, 7};
 int ledLength  = sizeof(ledArray);
-int delayTimer = 100;
+int delayTimer = 200;
 
 // illumina il primo led (blu)
 void lightBlueLed() {
   digitalWrite(ledArray[0], HIGH);
   digitalWrite(ledArray[1], LOW);
-  digitalWrite(ledArray[2], LOW);
+//  digitalWrite(ledArray[2], LOW);
 }
 
 // illumina il secondo led (verde)
@@ -25,7 +26,7 @@ void lightGreenLed() {
 
 // illumina il terzo led (giallo)
 void lightYellowLed() {
-  digitalWrite(ledArray[0], LOW);
+//  digitalWrite(ledArray[0], LOW);
   digitalWrite(ledArray[1], LOW);
   digitalWrite(ledArray[2], HIGH);
 }
@@ -40,12 +41,16 @@ void initLeds() {
 
 // illumina i led in sequenza
 void lightMultipleLeds() {
-  lightBlueLed();
-  delay(delayTimer);
-  lightGreenLed();
-  delay(delayTimer);
-  lightYellowLed();
-  delay(delayTimer); 
+  for(int i = 0; i <= lightCount; i++){
+    lightBlueLed();
+    delay(delayTimer);
+    lightGreenLed();
+    delay(delayTimer);
+    lightYellowLed();
+    delay(delayTimer); 
+  }
+  //e dopo spengo tutto
+  initLeds();
 }
 
 

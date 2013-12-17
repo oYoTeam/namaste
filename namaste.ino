@@ -24,8 +24,10 @@ long init1 = 0;
 boolean fatto = false;
 long media = 0;
 int readCount = 0;
-
-
+int numeroGiochi = 0;
+boolean special = false;
+int proximityValue = 500; //il valore minimo per far partire fabryz con il responso
+int specialGameNumber = 2; //quante giocate prima di far partire la special?
 void setup() {
 
   initCapacitive();
@@ -44,9 +46,24 @@ void loop() {
   
   media += getCapacitive();
 
-  if(readCount == 20){
-    Serial.println(media / 20);
-    sendNode(media / 20);
+  if(readCount == 10){
+    Serial.println(media / 10);
+      if(numeroGiochi == specialGameNumber ){ //se sono alla N giocata parte special max 
+        special = true;
+        specialFabryz();        
+      }
+    sendNode(media / 10,special);    
+    special = false;
+    if(media/10 < proximityValue){
+      almostThere();
+    }
+    if(media / 10 > proximityValue){ // ho raggiunto la prossimità necessaria. Parte l'animazione di fabryz e dopo tot secondi si riparte    
+      //  Accendi i led in sequenza
+      lightMultipleLeds();
+      youGotIt();
+      numeroGiochi++; //conto il numero di giocate, in modo che alla 3 faccio partire la special max
+      startThinking();
+    }
     readCount = 0;
     media = 0;
   }
@@ -54,10 +71,21 @@ void loop() {
     readCount++;
   }   
 
-  //  Accendi i led in sequenza
-  lightMultipleLeds();
-
   //  Wait every 10ms
-  delay(10);
+  delay(5);
 }
 
+void startThinking(){
+  delay(5000);
+}
+
+void almostThere(){
+  lightYellowLed();
+}
+void youGotIt(){
+  lightGreenLed();
+}
+
+void specialFabryz(){
+  lightBlueLed();
+}
