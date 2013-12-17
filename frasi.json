@@ -2,7 +2,8 @@
 	"frasi": [
 		{
 			"text": "Complimenti! La tua azienda sta andando sempre meglio, oggi festeggerai dando un aumento a tutti!",
-			"mood": "positivo"
+			"mood": "positivo",
+			"max" : "max"
 		},
 		{
 			"text": "La tua avventura finisce qui, il tuo h-factor non è sufficiente",
