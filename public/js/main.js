@@ -6,145 +6,91 @@
 
     $(function() {
         // inizializza Woolyarn
-    	Woolyarn.init();
+        Woolyarn.init();
 
-    	var socket          = Woolyarn.getSocket();
+        var socket          = Woolyarn.getSocket();
 
-        var previousDataArduino = 'diocan';
-        var previousDataHigh = 'tette';
-
-        var $doc  = $(document);
-        var $win  = $(window);
-        var $html = $('html');
-        var $body = $('body');
-        var $fabryzWaitingCt    = $body.find('.fabryz-waiting').eq(0); 
-        var $fabryzComeCloserCt = $body.find('.fabryz-come_closer').eq(0); 
-        var $fabryzThinkingCt   = $body.find('.fabryz-thinking').eq(0); 
-        var $fabryzSayingCt     = $body.find('.fabryz-saying').eq(0); 
-
-        //  helper per effettuare fadeIn di un div
-        function showDiv($obj) {
-            if (typeof $obj === 'object') {
-                if ($.isArray($obj)) {
-                    for (var i = 0; i < $obj.length; i++) {
-                        $obj[i].removeClass('hidden invisible');
-                    }
-                } else {
-                    $obj.removeClass('hidden invisible');
-                }
-                return true;
-            }
-            return false;
-        };
-
-        //  helper per effettuare fadeOut di un div
-        function hideDiv($obj) {
-            if (typeof $obj === 'object') {
-                if ($.isArray($obj)) {
-                    for (var i = 0; i < $obj.length; i++) {
-                        $obj[i].addClass('invisible').transitionEnd(function () {
-                            $obj[i].addClass('hidden').removeClass('invisible');
-                        });
-                    }
-                } else {
-                    $obj.addClass('invisible').transitionEnd(function () {
-                        $obj[i].addClass('hidden').removeClass('invisible');
-                    });
-                }
-                return true;
-            }
-            return false;
-        };
-
-        //  helper per effettuare il crossfade tra due div
-        function crossDiv($objIn, $objOut) {
-            showDiv($objIn);
-            hideDiv($objOut);
-        };
 
         //  mostra fabryz che pensa
-        function showFabryzWaiting() {
-            crossDiv($fabryzWaitingCt, [$fabryzComeCloserCt, $fabryzThinkingCt, $fabryzSayingCt]);
+        function showFabryzThinking() {
+
+        };
+
+        //  nasconde fabryz che pensa
+        function hideFabryzThinking() {
+
         };
 
         //  mostra fabryz che dice di avvicinarsi
         function showFabryzComeCloser() {
-            crossDiv($fabryzComeCloserCt, [$fabryzWaitingCt, $fabryzThinkingCt, $fabryzSayingCt]);
+
         };
 
-        //  mostra fabryz che pensa
+        //  nasconde fabryz che dice di avvicinarsi
+        function hideFabryzComeCloser() {
+
+        };
+
+        //  mostra fabryz che restituisce la frase
         function showFabryzThinking() {
-            crossDiv($fabryzThinkingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzSayingCt]);
+
         };
 
-        //  mostra fabryz che dice la frase
-        function showFabryzSaying() {
-            crossDiv($fabryzSayingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzThinkingCt]);
+        //  nasconde fabryz che restituisce la frase
+        function hideFabryzThinking() {
+
         };
 
 
         //  decide che funzione assegnare a ciascun stato
         function switchState(s) {
             var state = s;
-            console.log('Valore interpretato: ', state, ' di tipo: ', (typeof state));
 
             switch(state) {
-                case '0':     //  fabryz è in attesa
-                    console.log('Waiting');
-                    showFabryzWaiting();
-                break;
-                case '1':     //  fabryz dice di avvicinarsi
-                    console.log('ComeCloser');
-                    showFabryzComeCloser();
-                break;
-                case '2':     //  fabryz pensa
-                    console.log('Thinking');
+                case 0:     //  fabryz è in attesa
                     showFabryzThinking();
                 break;
+                case 1:     //  fabryz dice di avvicinarsi
+                    showFabryzComeCloser();
+                break;
+                case 2:     //  fabryz restituisce la frase
+                    showFabryzSayOracle();
+                break;
                 default:
-                    console.log('default-Waiting');
-                    showFabryzWaiting();
+                    showFabryzThinking();
             }
         };
 
         //  quando ricevo un valore in lettura da arduino
-    	Woolyarn.socket.on('arduino', function(data) {
-            if (!data || data.value == previousDataArduino) {
-                previousDataArduino = data.value;
-                return false;
-            }
-            previousDataArduino = data.value;
-
-            console.log('Valore da arduino: ', data.value, ' di tipo: ', (typeof data.value));
+        Woolyarn.socket.on('arduino', function(data) {
+            var state = ~~(data.value.value);
+            console.log('Value arrived from arduino: ' + state);
+            
+            //  debug del dato
             $("#currentValue").html(JSON.stringify(data));
-            switchState(JSON.stringify(data.value));
-    	});
+
+            switchState(state);
+        });
 
         //  quando ricevo un valore in lettura dalla barra capacitiva
         Woolyarn.socket.on('capacitiveBar', function(data) {
-            if (!data || data.high == previousDataHigh) {
-                previousDataHigh = data.high;
-                return false;
-            }
-            previousDataHigh = data.high;
-
             console.log('Value arrived from capacitiveBar: '+ data.high);
             arduinoValue = data.high;
             riempi(arduinoValue);
         });
 
-        //quando ricevo la frase
+        //  quando ricevo un valore in lettura dalla barra capacitiva
         Woolyarn.socket.on('namaste', function(data) {
-            console.log('Frase: '+ data.phrase.text);
-            console.log('Mood: '+ data.phrase.mood);
-            console.log('Max: '+ data.phrase.max); //nullo tranne nella frase di max in cui è valorizzat a "max"
-            //$("#currentValue").html(JSON.stringify(data));
+            console.log('phrase: '+ data.phrase.text);
+            console.log('mood: '+ data.phrase.mood);
+            console.log('max: '+ data.phrase.max);
         });
 
+
         //  quando faccio click sul nome
-    	$('.click-nome').on('click', function() {
+        $('.click-nome').on('click', function() {
             console.log(this);
-    		if ($(this).hasClass('.active')) {
+            if ($(this).hasClass('.active')) {
                 $('.nome').animate ({
                     opacity: 0
                 }, 1000);
@@ -155,7 +101,7 @@
                 }, 1000);
                 $(this).addClass('.active');
             }
-    	});
+        });
 
         //  quando faccio click su uno dei pulsanti numerati in alto a sinistra
         $('.bottoni p').on('click', function() {
@@ -168,8 +114,8 @@
 
     //  ???
     $('.stati span').on('click', function() {
-    	var stato = $(this).attr('valore');
-    	riempi(stato);
+        var stato = $(this).attr('valore');
+        riempi(stato);
     });
 
     //  anima la colonna a destra con il valore ricevuto
@@ -178,9 +124,9 @@
         if( valore<0 ) {
             valore == 0;
         }
-    	$('.colonna').animate({
-    		height : valore
-    	}, 100);
+        $('.colonna').animate({
+            height : valore
+        }, 100);
     }
 
 
@@ -337,9 +283,9 @@
         }
 
         $(window).resize(function() {
-        	var canvas = document.getElementById('myCanvas');
+            var canvas = document.getElementById('myCanvas');
 
-        	$(canvas).width(window.innerWidth);
+            $(canvas).width(window.innerWidth);
             $(canvas).height(window.innerHeight);
         });
 
@@ -354,3 +300,39 @@
                 particle.draw();
             });
         }
+
+        // Update the scene
+        function update() {
+            particles.forEach(function(particle) {
+                particle.update();
+            });
+        }
+
+        // function make_base() {
+          base_image = new Image();
+          // base_image.src = '/img/fabryz.png';
+          base_image.onload = function(){
+            context.drawImage(base_image, 100, 100);
+          }
+        // }
+
+        // Initialize the scene
+        init();
+
+        // If the context is set then we can draw the scene (if not then the browser does not support canvas)
+        if (context) {
+            setInterval(function() {
+                context.drawImage(base_image, 100, 100, 300, 300);
+
+                // Update the scene befoe drawing
+                update();
+
+                // Draw the scene
+                draw();
+            }, 1000 / targetFPS);
+        }
+    }
+
+    initFumo();
+
+})(jQuery)

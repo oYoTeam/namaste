@@ -46,6 +46,7 @@ app.get('/',  function(req, res) {
 app.get('/arduino',  function(req, res) {
 	Debug.log("Electric paint: "+ req.query.value);
 	Debug.log("SPECIAL GAME!" + req.query.special);
+	console.log(req.query);
 	bus.emit('arduino', req.query);
 	res.end("OK");
 });
