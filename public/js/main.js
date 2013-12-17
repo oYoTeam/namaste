@@ -22,7 +22,10 @@
         var $fabryzWaitingCt    = $body.find('.fabryz-waiting').eq(0); 
         var $fabryzComeCloserCt = $body.find('.fabryz-come_closer').eq(0); 
         var $fabryzThinkingCt   = $body.find('.fabryz-thinking').eq(0); 
-        var $fabryzSayingCt     = $body.find('.fabryz-saying').eq(0); 
+        var $fabryzAnimationCt  = $body.find('.fabryz-animation').eq(0); 
+        var $fabryzSayingOkCt   = $body.find('.fabryz-saying-ok').eq(0);
+        var $fabryzSayingNoCt   = $body.find('.fabryz-saying-no').eq(0); 
+        var $fabryzSayingMaxCt  = $body.find('.fabryz-saying-max').eq(0); 
 
         //  helper per effettuare fadeIn di un div
         function showDiv($obj) {
@@ -66,29 +69,43 @@
 
         //  mostra fabryz che pensa
         function showFabryzWaiting() {
-            crossDiv($fabryzWaitingCt, [$fabryzComeCloserCt, $fabryzThinkingCt, $fabryzSayingCt]);
+            crossDiv($fabryzWaitingCt, [$fabryzComeCloserCt, $fabryzThinkingCt, $fabryzAnimationCt, $fabryzSayingOkCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
         };
 
         //  mostra fabryz che dice di avvicinarsi
         function showFabryzComeCloser() {
-            crossDiv($fabryzComeCloserCt, [$fabryzWaitingCt, $fabryzThinkingCt, $fabryzSayingCt]);
+            crossDiv($fabryzComeCloserCt, [$fabryzWaitingCt, $fabryzThinkingCt, $fabryzAnimationCt, $fabryzSayingOkCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
         };
 
         //  mostra fabryz che pensa
         function showFabryzThinking() {
-            crossDiv($fabryzThinkingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzSayingCt]);
+            crossDiv($fabryzThinkingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzSayingOkCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
         };
 
-        //  mostra fabryz che dice la frase
-        function showFabryzSaying() {
-            crossDiv($fabryzSayingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzThinkingCt]);
+        //  mostra fabryz durante l'animazione
+        function showFabryzAnimation() {
+            crossDiv($fabryzAnimationCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
+        };
+
+        //  mostra fabryz che dice OK
+        function showFabryzSayingOk() {
+            crossDiv($fabryzSayingOkCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
+        };
+
+        //  mostra fabryz che dice NO
+        function showFabryzSayingNo() {
+            crossDiv($fabryzSayingNoCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingMaxCt]);
+        };
+
+        //  mostra fabryz che dice Max :)
+        function showFabryzMax() {
+            crossDiv($fabryzMaxCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingNoCt]);
         };
 
         //  inizia la lettura dei valori via socket da arduino
         function startSocketListening() {
             Woolyarn.socket.on('arduino', function(data) {
                 var thisTime = new Date();
-                console.log("*");
                 if (!data || (thisTime - thatTime) < 10000) {
                     return false;
                 } else if (data.value == previousDataArduino) {
@@ -115,6 +132,13 @@
                         console.log('Thinking');
                         thatTime = new Date();
                         showFabryzThinking();
+                        //  dopo 3 secondi fabryz parla
+                        window.setTimeout(function() {
+                            showFabryzAnimation();
+                            window.setTimeout(function() {
+                                showFabryzSayingOk();
+                            }, 3000);
+                        }, 3000);
                     break;
                     default:    //  fabryz è in attesa
                         console.log('default-Waiting');
@@ -123,13 +147,19 @@
             });
         }
 
+        //  quando ricevo un valore in lettura dalla barra capacitiva
+        Woolyarn.socket.on('capacitiveBar', function(data) {
+            console.log('Value arrived from capacitiveBar: '+ data.high);
+            arduinoValue = data.high;
+            riempi(arduinoValue);
+        });
+
         //  inizia lettura dalla barra capacitiva
         function startNamasteListening() {
             Woolyarn.socket.on('namaste', function(data) {
-                console.log("**");
-                // console.log('phrase: '+ data.phrase.text);
-                // console.log('mood: '+ data.phrase.mood);
-                // console.log('max: '+ data.phrase.max);
+                console.log('phrase: '+ data.phrase.text);
+                console.log('mood: '+ data.phrase.mood);
+                console.log('max: '+ data.phrase.max);      //  se non è max è undefined o null
             });
         }
 
