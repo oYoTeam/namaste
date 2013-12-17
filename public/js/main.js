@@ -346,39 +346,3 @@
                 particle.draw();
             });
         }
-
-        // Update the scene
-        function update() {
-            particles.forEach(function(particle) {
-                particle.update();
-            });
-        }
-
-        // function make_base() {
-          base_image = new Image();
-          // base_image.src = '/img/fabryz.png';
-          base_image.onload = function(){
-            context.drawImage(base_image, 100, 100);
-          }
-        // }
-
-        // Initialize the scene
-        init();
-
-        // If the context is set then we can draw the scene (if not then the browser does not support canvas)
-        if (context) {
-            setInterval(function() {
-            	context.drawImage(base_image, 100, 100, 300, 300);
-
-                // Update the scene befoe drawing
-                update();
-
-                // Draw the scene
-                draw();
-            }, 1000 / targetFPS);
-        }
-    }
-
-    initFumo();
-
-})(jQuery);
