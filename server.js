@@ -45,7 +45,8 @@ app.get('/',  function(req, res) {
 
 app.get('/arduino',  function(req, res) {
 	Debug.log("Electric paint: "+ req.query.value);
-	bus.emit('arduino', req.query.value);
+	Debug.log("SPECIAL GAME!" + req.query.special);
+	bus.emit('arduino', req.query);
 	res.end("OK");
 });
 
@@ -206,6 +207,7 @@ function mode(array) {
 
 function guessStableValue() {
 	var stableStatus;
+	var frase;
 		stableStatus = mode(valuesArray);
 
 		if (stableStatus !== null) {
@@ -217,18 +219,21 @@ function guessStableValue() {
 
 		io.sockets.emit('arduino', { value: stableStatus });
 		//se lo stato è quello giusto, mando la frase
-		if(stableStatus == 2 ){
-			io.sockets.emit('namaste', { data: getFraseRandom(false) });
+		if(stableStatus >= 2 ){
+			console.log("porcoddioooooooooooooooooooooooooooooooo"+special);
+			frase = getFraseRandom(special);
+			io.sockets.emit('namaste', { phrase  : frase });
+			console.log("FRASE: "+frase.text);
+			special = false;
 		}
 
 	startStableValueTimeout();
-	
 }
 
 
 function startStableValueTimeout(value) {
 
-	stableValueTimeout = setTimeout(function() { guessStableValue() }, 2000);
+	stableValueTimeout = setTimeout(function() { guessStableValue() }, 1000);
 
 }
 
@@ -251,7 +256,7 @@ function getFraseRandom(getFraseMax) {
 
 	getFraseMax = getFraseMax || false;
 
-	if (getFraseMax) {
+	if (getFraseMax == true) {
 		frase = frasiList[0];
 	} else {
 		frase = frasiList[getRandomValue()];
@@ -269,16 +274,17 @@ var valuesArray = [];
 var frasi_json = require('./frasi.json');
 var frasiList = frasi_json.frasi;
 var fraseDiMaxPosition = 0;
-
+var special = false;
 bus.on('arduino', function(value) {
-	io.sockets.emit('capacitiveBar', { high: value });
-	valuesArray.push(value);
+	io.sockets.emit('capacitiveBar', { high: value.value });
+	valuesArray.push(value.value);
+	special = value.special;
 });
 
 startStableValueTimeout();
 
 // TEST
 
-var fraseRandom = getFraseRandom(false); // use true to get special phrase
+//var fraseRandom = getFraseRandom(false); // use true to get special phrase
 
-console.log(fraseRandom);
+//console.log(fraseRandom);
