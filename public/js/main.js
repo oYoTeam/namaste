@@ -111,7 +111,7 @@
         //  ferma la lettura dei valori via socket da arduino
         function stopSocketListening(t) {
             var stopTimer = (typeof t === 'number') ? t : 10000;
-            Woolyarn.socket.off('arduino');
+            Woolyarn.socket.removeListener('arduino');
             window.setTimeout(function(){
                 startSocketListening();
             }, stopTimer);
