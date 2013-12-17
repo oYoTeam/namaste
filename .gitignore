@@ -6,3 +6,6 @@ node_modules/*
 
 # ide
 *.sublime-*
+
+# file di sistema
+.DS_Store
