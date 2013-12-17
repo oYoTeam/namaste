@@ -1,1 +1,8 @@
+# node
+node_modules/*
+
+# Arduino files
+*.ino
+
+# ide
 *.sublime-*
