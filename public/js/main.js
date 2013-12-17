@@ -133,6 +133,14 @@
             riempi(arduinoValue);
         });
 
+        //quando ricevo la frase
+        Woolyarn.socket.on('namaste', function(data) {
+            console.log('Frase: '+ data.phrase.text);
+            console.log('Mood: '+ data.phrase.mood);
+            console.log('Max: '+ data.phrase.max); //nullo tranne nella frase di max in cui è valorizzat a "max"
+            //$("#currentValue").html(JSON.stringify(data));
+        });
+
         //  quando faccio click sul nome
     	$('.click-nome').on('click', function() {
             console.log(this);
