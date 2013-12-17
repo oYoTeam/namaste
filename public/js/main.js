@@ -10,6 +10,8 @@
 
         var socket          = Woolyarn.getSocket();
 
+        var thatTime = 0;
+
         var previousDataArduino = 'diocan';
         var previousDataHigh = 'tette';
 
@@ -82,62 +84,54 @@
             crossDiv($fabryzSayingCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzThinkingCt]);
         };
 
-
-        //  decide che funzione assegnare a ciascun stato
-        function switchState(s) {
-            var state = s;
-            console.log('Valore interpretato: ', state, ' di tipo: ', (typeof state));
-
-            switch(state) {
-                case 0:     //  fabryz è in attesa
-                    console.log('Waiting');
-                    showFabryzWaiting();
-                break;
-                case 1:     //  fabryz dice di avvicinarsi
-                    console.log('ComeCloser');
-                    showFabryzComeCloser();
-                break;
-                case 2:     //  fabryz pensa
-                    console.log('Thinking');
-                    stopSocketListening(10000);
-                    showFabryzThinking();
-                break;
-                default:
-                    console.log('default-Waiting');
-                    showFabryzWaiting();
-            }
-        };
-
-        //  ferma la lettura dei valori via socket da arduino
-        function stopSocketListening(t) {
-            var stopTimer = (typeof t === 'number') ? t : 10000;
-            Woolyarn.socket.removeListener('arduino');
-            window.setTimeout(function(){
-                startSocketListening();
-            }, stopTimer);
-        }
-
         //  inizia la lettura dei valori via socket da arduino
         function startSocketListening() {
             Woolyarn.socket.on('arduino', function(data) {
-                if (!data || data.value == previousDataArduino) {
+                var thisTime = new Date();
+                console.log("*");
+                if (!data || (thisTime - thatTime) < 10000) {
+                    return false;
+                } else if (data.value == previousDataArduino) {
                     previousDataArduino = data.value;
                     return false;
                 }
+
                 previousDataArduino = data.value;
 
-                console.log('Valore da arduino: ', data.value, ' di tipo: ', (typeof data.value));
                 $("#currentValue").html(JSON.stringify(data));
-                switchState(data.value);
+
+                //  decide che funzione assegnare a ciascun stato
+                var state = data.value;
+                switch(state) {
+                    case 0:     //  fabryz è in attesa
+                        console.log('Waiting');
+                        showFabryzWaiting();
+                    break;
+                    case 1:     //  fabryz dice di avvicinarsi
+                        console.log('ComeCloser');
+                        showFabryzComeCloser();
+                    break;
+                    case 2:     //  fabryz pensa
+                        console.log('Thinking');
+                        thatTime = new Date();
+                        showFabryzThinking();
+                    break;
+                    default:    //  fabryz è in attesa
+                        console.log('default-Waiting');
+                        showFabryzWaiting();
+                }
             });
         }
 
-        //  quando ricevo un valore in lettura dalla barra capacitiva
-        Woolyarn.socket.on('namaste', function(data) {
-            console.log('phrase: '+ data.phrase.text);
-            console.log('mood: '+ data.phrase.mood);
-            console.log('max: '+ data.phrase.max);
-        });
+        //  inizia lettura dalla barra capacitiva
+        function startNamasteListening() {
+            Woolyarn.socket.on('namaste', function(data) {
+                console.log("**");
+                // console.log('phrase: '+ data.phrase.text);
+                // console.log('mood: '+ data.phrase.mood);
+                // console.log('max: '+ data.phrase.max);
+            });
+        }
 
         //  quando faccio click sul nome
         $('.click-nome').on('click', function() {
@@ -163,6 +157,7 @@
 
         //  Inizia la lettura dei valori
         startSocketListening();
+        startNamasteListening();
 
     });
 
