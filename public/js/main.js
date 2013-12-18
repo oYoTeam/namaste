@@ -429,7 +429,7 @@
         startBonzo();
     }
 
-    // initFumo();
-    // animaBonzo();
+    initFumo();
+    animaBonzo();
 
 })(jQuery);

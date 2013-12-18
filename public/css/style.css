@@ -49,6 +49,7 @@ a {
 	z-index: 70;
 	color: #fff;
 	display: none;
+	z-index: 70;
 }
 
 .click-nome {
@@ -61,9 +62,13 @@ a {
 }
 
 #myCanvas{
-	position: fixed;
-	bottom: 0px;
+	position: absolute;
 	display: block;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index: 50;
 }
 
 .nome {
@@ -156,8 +161,10 @@ a {
 }
 
 .real-wrapper {
+	position:relative;
 	width: 100%;
 	margin-top: 20px;
+	z-index: 70;
 }
 
 .left-block {
