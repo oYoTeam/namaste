@@ -413,6 +413,23 @@
         }
     }
 
-    initFumo();
+    var timeoutBonzo = null;
+
+    function startBonzo() {
+        timeoutBonzo = setTimeout(function() { animaBonzo() }, 4000);
+    }
+
+    function animaBonzo() {        
+        $('.codello-container').animate({
+            top: '-50px'
+        }, 2000, 'swing').animate({
+            top: '0px'
+        }, 1500, 'swing');
+
+        startBonzo();
+    }
+
+    // initFumo();
+    // animaBonzo();
 
 })(jQuery);

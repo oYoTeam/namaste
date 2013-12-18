@@ -48,6 +48,7 @@ a {
 	position: relative;
 	z-index: 70;
 	color: #fff;
+	display: none;
 }
 
 .click-nome {
@@ -56,6 +57,7 @@ a {
 	z-index: 70;
 	cursor: pointer;
 	top: 300px;
+	display: none;
 }
 
 #myCanvas{
@@ -69,8 +71,8 @@ a {
 	height: 100px;
 	width: 600px;
 	position: absolute;
-	top: 200px;
-	right: 200px;
+	/* top: 200px;
+	right: 200px; */
 	color: #fff;
 	font-family: 'indian', Helvetica, Arial, sans-serif;
 	font-size: 40px;
@@ -102,9 +104,26 @@ a {
 .codello-container {
 	position: relative;
 	margin: 0 auto;
-	width: 960px;
+	/* width: 960px; */
 	z-index: 100;
+
+	/*
+	box-shadow: 0 60px 12px -18px hsla(0,0%,0%,.1),
+    					0 60px 20px -12px hsla(0,0%,0%,.1);
+    
+    -webkit-animation: flottildo 1s infinite;
+    -moz-animation: flottildo 1s infinite;
+    -o-animation: flottildo 1s infinite;
+    animation: flottildo 1s infinite;*/
 }
+
+/* @keyframes flottildo {
+	100% {
+    	transform: translateY(200px);
+    	box-shadow: 0 40px 10px -18px hsla(0,0%,0%,.2),
+    					0 40px 16px -12px hsla(0,0%,0%,.2);
+	}
+} */
 
 .codello-container .row {
 	position: absolute;
@@ -125,3 +144,33 @@ a {
 	margin-right: 20px; 
 	cursor: pointer;
 }
+
+#woolyarn-debug {
+	display: none;
+
+}
+
+.megaTitle {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.real-wrapper {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.left-block {
+	float: left;
+	width: 50%;
+}
+
+.right-block {
+	float: right;
+	width: 50%;
+}
+
+.clear {
+	clear: both;
+}
+
