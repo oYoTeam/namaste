@@ -126,24 +126,24 @@ io.sockets.on('connection', function(client) {
 var intervals = [
 {
 	min: 0,
-	max: 100,
+	max: 130,
 	status: 0,
 	label: "nessuno"
 },
 {
-	min: 100,
-	max: 200,
+	min: 130,
+	max: 230,
 	status: 1,
 	label: "basso"
 },
 {
-	min: 200,
-	max: 500,
+	min: 230,
+	max: 600,
 	status: 2,
 	label: "alto"
 },
 {
-	min: 500,
+	min: 600,
 	max: 1000000,
 	status: 3,
 	label: "altissimo"

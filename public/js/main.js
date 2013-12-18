@@ -106,7 +106,7 @@
         function startSocketListening() {
             Woolyarn.socket.on('arduino', function(data) {
                 var thisTime = new Date();
-                if (!data || (thisTime - thatTime) < 10000) {
+                if (!data || (thisTime - thatTime) < 15000) {
                     return false;
                 } else if (data.value == previousDataArduino) {
                     previousDataArduino = data.value;
@@ -137,8 +137,8 @@
                             showFabryzAnimation();
                             window.setTimeout(function() {
                                 showFabryzSayingOk();
-                            }, 3000);
-                        }, 3000);
+                            }, 7000);
+                        }, 2000);
                     break;
                     default:    //  fabryz è in attesa
                         console.log('default-Waiting');
