@@ -81,8 +81,7 @@ a {
 	color: #fff;
 	font-family: 'indian', Helvetica, Arial, sans-serif;
 	font-size: 40px;
-	text-transform: uppercase;
-	opacity: 0;
+	opacity: 1;
 }
 
 .colonna {
