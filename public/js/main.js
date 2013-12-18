@@ -12,14 +12,14 @@
 
         var thatTime = 0;
 
-        var previousDataArduino = 'diocan';
-        var previousDataHigh = 'tette';
+        var previousDataArduino = 'lol';
+        var previousDataHigh = 'asd';
 
         var $doc  = $(document);
         var $win  = $(window);
         var $html = $('html');
         var $body = $('body');
-        var $statementCt = $('.nome');
+        var $statementCt = $('.nome').eq(0);
         var $fabryzWaitingCt    = $body.find('.fabryz-waiting').eq(0); 
         var $fabryzComeCloserCt = $body.find('.fabryz-come_closer').eq(0); 
         var $fabryzThinkingCt   = $body.find('.fabryz-thinking').eq(0); 
@@ -31,7 +31,7 @@
         //  inserisce la frase
         function changeStatement(s) {
             var stat = (typeof s === 'string' && s.length) ? s : 'Namaste';
-            $statementCt.innerHTML = stat;
+            $statementCt.html('<p>' + stat + '</p>');
         };
 
         //  setta il mood della risposta
@@ -39,13 +39,13 @@
             var mood = (typeof m === 'string' && m.length) ? m.toUpperCase() : 'OK';
             switch (mood) {
                 case 'OK':
-                    showFabryzSayingOk();
+                    showFabryzOk();
                 break;
                 case 'NO':
-                    showFabryzSayingNo();
+                    showFabryzNo();
                 break;
                 case 'MAX':
-                    showFabryzSayingMax();
+                    showFabryzMax();
                 break;
             }
         };
@@ -111,12 +111,12 @@
         };
 
         //  mostra fabryz che dice OK
-        function showFabryzSayingOk() {
+        function showFabryzOk() {
             crossDiv($fabryzSayingOkCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingNoCt, $fabryzSayingMaxCt]);
         };
 
         //  mostra fabryz che dice NO
-        function showFabryzSayingNo() {
+        function showFabryzNo() {
             crossDiv($fabryzSayingNoCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingMaxCt]);
         };
 
@@ -155,10 +155,6 @@
                         console.log('Thinking');
                         thatTime = new Date();
                         showFabryzThinking();
-                        // //  dopo 3 secondi fabryz parla
-                        // window.setTimeout(function() {
-                        //     showFabryzAnimation();
-                        // }, 2000);
                     break;
                     default:    //  fabryz è in attesa
                         console.log('default-Waiting');
@@ -186,16 +182,16 @@
                 window.setTimeout(function() {
                     showFabryzAnimation();
                     window.setTimeout(function() {
-                        //  scegli che animazione di fabryz mostrare in base al mood
-                        changeMood(mood);
-                        changeStatement(statement);
-                        // fadein frase
-                        $statementCt.fadeIn(350);
+                        // fadeout frase e svuota contenitore
+                        $statementCt.fadeOut(350, function(){
+                            changeStatement('<p>Namaste H-artista!<br><br>Avvicinati e ti dirò il vero.</p>');
+                        });
                     }, 7000);
-                    // fadeout frase e svuota contenitore
-                    $statementCt.fadeIn(350, function(){
-                        changeStatement(' ');
-                    });
+                    //  scegli che animazione di fabryz mostrare in base al mood
+                    changeMood(mood);
+                    changeStatement(statement);
+                    // fadein frase
+                    $statementCt.fadeIn(350);
                 }, 2000);
             });
         }
