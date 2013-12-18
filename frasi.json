@@ -2,44 +2,44 @@
 	"frasi": [
 		{
 			"text": "Complimenti! La tua azienda sta andando sempre meglio, oggi festeggerai dando un aumento a tutti!",
-			"mood": "positivo",
+			"mood": "max",
 			"max" : "max"
 		},
 		{
 			"text": "La tua avventura finisce qui, il tuo h-factor non è sufficiente",
-			"mood": "negativo"
+			"mood": "no"
 		},
 		{
 			"text": "Al rientro a casa finirai con la tua macchina dentro una buca del parcheggio",
-			"mood": "negativo"
+			"mood": "no"
 		},
 		{
 			"text": "Oggi Sinigaglia è in ferie, potrai lavorare in tranquillità",
-			"mood": "positivo"
+			"mood": "ok"
 		},
 		{
 			"text": "La suoneria di Sinigaglia è rotta, potrai lavorare in tranquillità",
-			"mood": "positivo"
+			"mood": "ok"
 		},
 		{
 			"text": "Una nutria ti morderà la caviglia. Cerca il modulo di malattia su Podio",
-			"mood": "negativo"
+			"mood": "no"
 		},
 		{
 			"text": "Oggi c'è un grafico a disposizione!",
-			"mood": "positivo"
+			"mood": "ok"
 		},
 		{
 			"text": "Il plugin che ha scritto pleone ha generato un Epic Fail. Inizia a trovare una scusa.",
-			"mood": "negativo"
+			"mood": "no"
 		},
 		{
 			"text": "Il tuo mac sta tirando le cuoia, inizia a fare backup",
-			"mood": "negativo"
+			"mood": "no"
 		},
 		{
 			"text": "Oggi il menu della serra non conterrà cibi dei giorni precedenti! Woo Hoo!",
-			"mood": "positivo"
+			"mood": "ok"
 		}
 	]
 }
