@@ -19,6 +19,7 @@
         var $win  = $(window);
         var $html = $('html');
         var $body = $('body');
+        var $statementCt = $('.nome');
         var $fabryzWaitingCt    = $body.find('.fabryz-waiting').eq(0); 
         var $fabryzComeCloserCt = $body.find('.fabryz-come_closer').eq(0); 
         var $fabryzThinkingCt   = $body.find('.fabryz-thinking').eq(0); 
@@ -26,6 +27,28 @@
         var $fabryzSayingOkCt   = $body.find('.fabryz-saying-ok').eq(0);
         var $fabryzSayingNoCt   = $body.find('.fabryz-saying-no').eq(0); 
         var $fabryzSayingMaxCt  = $body.find('.fabryz-saying-max').eq(0); 
+
+        //  inserisce la frase
+        function changeStatement(s) {
+            var stat = (typeof s === 'string' && s.length) ? s : 'Namaste';
+            $statementCt.innerHTML = stat;
+        };
+
+        //  setta il mood della risposta
+        function changeMood(m) {
+            var mood = (typeof m === 'string' && m.length) ? m.toUpperCase() : 'OK';
+            switch (mood) {
+                case 'OK':
+                    showFabryzSayingOk();
+                break;
+                case 'NO':
+                    showFabryzSayingNo();
+                break;
+                case 'MAX':
+                    showFabryzSayingMax();
+                break;
+            }
+        };
 
         //  helper per effettuare fadeIn di un div
         function showDiv($obj) {
@@ -132,13 +155,10 @@
                         console.log('Thinking');
                         thatTime = new Date();
                         showFabryzThinking();
-                        //  dopo 3 secondi fabryz parla
-                        window.setTimeout(function() {
-                            showFabryzAnimation();
-                            window.setTimeout(function() {
-                                showFabryzSayingOk();
-                            }, 7000);
-                        }, 2000);
+                        // //  dopo 3 secondi fabryz parla
+                        // window.setTimeout(function() {
+                        //     showFabryzAnimation();
+                        // }, 2000);
                     break;
                     default:    //  fabryz è in attesa
                         console.log('default-Waiting');
@@ -159,7 +179,24 @@
             Woolyarn.socket.on('namaste', function(data) {
                 console.log('phrase: '+ data.phrase.text);
                 console.log('mood: '+ data.phrase.mood);
-                console.log('max: '+ data.phrase.max);      //  se non è max è undefined o null
+                // console.log('max: '+ data.phrase.max);      //  se non è max è undefined o null
+                var statement   = data.phrase.text;
+                var mood        = data.phrase.mood;
+                //  dopo 3 secondi fabryz parla
+                window.setTimeout(function() {
+                    showFabryzAnimation();
+                    window.setTimeout(function() {
+                        //  scegli che animazione di fabryz mostrare in base al mood
+                        changeMood(mood);
+                        changeStatement(statement);
+                        // fadein frase
+                        $statementCt.fadeIn(350);
+                    }, 7000);
+                    // fadeout frase e svuota contenitore
+                    $statementCt.fadeIn(350, function(){
+                        changeStatement(' ');
+                    });
+                }, 2000);
             });
         }
 
