@@ -36,7 +36,7 @@
 
         //  setta il mood della risposta
         function changeMood(m) {
-            var mood = (typeof m === 'string' && m.length) ? m.toUpperCase() : 'OK';
+            var mood = (typeof m === 'string') ? m.toUpperCase() : 'OK';
             switch (mood) {
                 case 'OK':
                     showFabryzOk();
@@ -186,7 +186,7 @@
                         $statementCt.fadeOut(350, function(){
                             changeStatement('<p>Namaste H-artista!<br><br>Avvicinati e ti dirò il vero.</p>');
                         });
-                    }, 7000);
+                    }, 12000);
                     //  scegli che animazione di fabryz mostrare in base al mood
                     changeMood(mood);
                     changeStatement(statement);
