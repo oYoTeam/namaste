@@ -122,7 +122,7 @@
 
         //  mostra fabryz che dice Max :)
         function showFabryzMax() {
-            crossDiv($fabryzMaxCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingNoCt]);
+            crossDiv($fabryzSayingMaxCt, [$fabryzWaitingCt, $fabryzComeCloserCt, $fabryzAnimationCt, $fabryzThinkingCt, $fabryzSayingOkCt, $fabryzSayingNoCt]);
         };
 
         //  inizia la lettura dei valori via socket da arduino
@@ -181,18 +181,21 @@
                 //  dopo 3 secondi fabryz parla
                 window.setTimeout(function() {
                     showFabryzAnimation();
-                    window.setTimeout(function() {
-                        // fadeout frase e svuota contenitore
-                        $statementCt.fadeOut(350, function(){
-                            changeStatement('<p>Namaste H-artista!<br><br>Avvicinati e ti dirò il vero.</p>');
-                        });
-                    }, 12000);
-                    //  scegli che animazione di fabryz mostrare in base al mood
-                    changeMood(mood);
-                    changeStatement(statement);
+                    window.setTimeout(function(){ 
+                        changeMood(mood);
+                        changeStatement(statement);
+                        window.setTimeout(function() {
+                            // fadeout frase e svuota contenitore
+                            $statementCt.fadeOut(350, function(){
+                                changeStatement('<p></p>');
+                            });
+                        }, 10000);
+                    }, 5000); //questi sono i secondi di durata della gif
+                    
+                    
                     // fadein frase
                     $statementCt.fadeIn(350);
-                }, 2000);
+                }, 2000); // sono i secondi per l'aspetta
             });
         }
 
@@ -462,7 +465,7 @@
         startBonzo();
     }
 
-    initFumo();
+//    initFumo();
     animaBonzo();
 
 })(jQuery);
