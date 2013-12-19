@@ -40,6 +40,38 @@
 		{
 			"text": "Oggi il menu della serra non conterrà cibi dei giorni precedenti! Woo Hoo!",
 			"mood": "ok"
+		},
+		{
+			"text": "Oggi Cadamuro farà una landing che spacca!",
+			"mood": "ok"
+		},
+		{
+			"text": "Oggi Paui cercherà di venderti gadget a caso per comprare un nuovo iphone!",
+			"mood": "no"
+		},
+		{
+			"text": "Oggi Capitano è disponibile per aiutarti!",
+			"mood": "ok"
+		},
+		{
+			"text": "Giorgia ti dirà che sarà una giornata perfetta per usare l'apribottoglie Alessi!",
+			"mood": "ok"
+		},
+		{
+			"text": "Paolino ha dimenticato l'ipad a casa. Brutta giornata per tutti",
+			"mood": "no"
+		},
+		{
+			"text": "Pia ha venduto un nuovo progetto per ieri. Felici straordinari!",
+			"mood": "no"
+		},
+		{
+			"text": "C'è crisi: Vigato venderà il tuo mouse e la tua sedia. Buon lavoro!",
+			"mood": "no"
+		},
+		{
+			"text": "Oggi hai dimenticato il timesheet. Riceverai la 40esima mail di Virdis!",
+			"mood": "no"
 		}
 	]
 }
