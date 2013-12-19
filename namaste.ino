@@ -53,11 +53,13 @@ void loop() {
         specialFabryz();        
       }
     sendNode(media / 10,special);    
-    special = false;
+
     if(media/10 < proximityValue){
       almostThere();
     }
     if(media / 10 > proximityValue){ // ho raggiunto la prossimità necessaria. Parte l'animazione di fabryz e dopo tot secondi si riparte    
+      sendNode(media / 10,special);
+      special = false;
       //  Accendi i led in sequenza
       lightMultipleLeds();
       youGotIt();
