@@ -465,7 +465,7 @@
         startBonzo();
     }
 
-//    initFumo();
+    initFumo();
     animaBonzo();
 
 })(jQuery);
