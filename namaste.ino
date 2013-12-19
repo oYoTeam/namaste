@@ -26,7 +26,7 @@ long media = 0;
 int readCount = 0;
 int numeroGiochi = 0;
 boolean special = false;
-int proximityValue = 230; //il valore minimo per far partire fabryz con il responso
+int proximityValue = 300; //il valore minimo per far partire fabryz con il responso
 int specialGameNumber = 2; //quante giocate prima di far partire la special?
 void setup() {
 
