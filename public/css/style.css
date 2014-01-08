@@ -80,7 +80,7 @@ a {
 	right: 200px; */
 	color: #fff;
 	font-family: 'indian', Helvetica, Arial, sans-serif;
-	font-size: 40px;
+	font-size: 30px;
 	opacity: 1;
 }
 
@@ -168,12 +168,12 @@ a {
 
 .left-block {
 	float: left;
-	width: 50%;
+	width: 40%;
 }
 
 .right-block {
 	float: right;
-	width: 50%;
+	width: 60%;
 }
 
 .clear {
